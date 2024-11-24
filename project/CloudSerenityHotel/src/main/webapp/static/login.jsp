@@ -48,7 +48,7 @@
 		</div>
 	</nav>
 	<div class="login container">
-		<form class="loginform" method="post" action="/user/login">
+		<form class="loginform" method="post" action="../user/login">
 			<h2 style='text-align: center; margin: 0;'>歡迎登入</h2>
 			<br>
 			<label for="email" class="form-label fs-5">電子信箱</label>
