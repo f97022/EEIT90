@@ -1,0 +1,5 @@
+package com.cloudSerenityHotel.dao.user;
+
+public class UserDAO {
+
+}

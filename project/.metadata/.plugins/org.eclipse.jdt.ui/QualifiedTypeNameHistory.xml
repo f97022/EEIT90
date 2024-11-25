@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="lombok.Data"/>
+    <fullyQualifiedTypeName name="lombok.NoArgsConstructor"/>
+    <fullyQualifiedTypeName name="lombok.AllArgsConstructor"/>
+    <fullyQualifiedTypeName name="java.io.Serializable"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="com.cloudSerenityHotel.utils.JDBCUtils"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.cloudSerenityHotel.utils.getTimeUtils"/>
+    <fullyQualifiedTypeName name="com.cloudSerenityHotel.bean.user.MemberBean"/>
+    <fullyQualifiedTypeName name="java.nio.file.attribute.UserDefinedFileAttributeView"/>
+    <fullyQualifiedTypeName name="com.cloudSerenityHotel.dao.user.UserDAO"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="com.cloudSerenityHotel.dao.user.MemberDAO"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="com.cloudSerenityHotel.service.user.UserService"/>
+    <fullyQualifiedTypeName name="com.cloudSerenityHotel.bean.user.UserBean"/>
+</qualifiedTypeNameHistroy>

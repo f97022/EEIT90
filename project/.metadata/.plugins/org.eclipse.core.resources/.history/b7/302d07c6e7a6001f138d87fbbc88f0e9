@@ -1,0 +1,61 @@
+package com.cloudSerenityHotel.bean.user;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+
+public class MemberBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	private Integer userId; //使用者編號
+	private String memberName; //會員姓名
+	private String gender; //性別
+	private Date birthday; //生日
+	private String phone; //電話
+	private String personalIdNo; //身分證字號
+	private String country; //國家
+	private String address; //地址
+	private String passportNo; //護照號碼
+	private Date registerDate; //註冊時間
+	private Date updateTime; //資料更新時間
+	
+	//外國人
+	public MemberBean(Integer userId, String memberName, String gender, Date birthday, String phone, String country,
+			String address, String passportNo, Date registerDate, Date updateTime) {
+		super();
+		this.userId = userId;
+		this.memberName = memberName;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.country = country;
+		this.address = address;
+		this.passportNo = passportNo;
+		this.registerDate = registerDate;
+		this.updateTime = updateTime;
+	}
+
+	//本國人
+	public MemberBean(Integer userId, String memberName, String gender, Date birthday, String phone,
+			String personalIdNo, String country, String address, Date registerDate, Date updateTime) {
+		super();
+		this.userId = userId;
+		this.memberName = memberName;
+		this.gender = gender;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.personalIdNo = personalIdNo;
+		this.country = country;
+		this.address = address;
+		this.registerDate = registerDate;
+		this.updateTime = updateTime;
+	}
+	
+	
+}

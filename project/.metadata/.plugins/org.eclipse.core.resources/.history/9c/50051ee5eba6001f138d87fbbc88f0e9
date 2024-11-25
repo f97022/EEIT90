@@ -1,0 +1,10 @@
+package com.cloudSerenityHotel.dao.user;
+
+public class UserDAO {
+	private static final String INSERT = "INSERT INTO users() VALUES()";
+	private static final String DELETE = "UPDATE users SET user_status = ? WHERE userid =?";
+	private static final String UPDATE = "UPDATE users SET  WHERE userid =?";
+	private static final String GETONE = "SELECT * FROM users WHERE userid =?";
+	private static final String GETALL = "SELECT * FROM users";
+
+}
