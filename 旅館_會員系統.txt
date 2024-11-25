@@ -33,9 +33,7 @@ res
 DB > dao > service > controller > view(JSP) > webClient
 
 登入:
-檢查Session > 判斷是否有Session (有選2 沒有選1)
-1.輸入並傳送帳密 > 收到帳密 > 取DB(users)資料比對(正確換頁面 設定Session 錯誤留在這頁) > 跳轉到登入後頁面
-2.跳轉登入後頁面
+輸入並傳送帳密 > 收到帳密 > 取DB(users)資料比對(正確換頁面 設定Session 錯誤留在這頁) > 跳轉到登入後頁面
 
 註冊:
 輸入並傳送資料 > 收到資料 > 處理資料 > 放入DB(users,members) > 跳轉到登入頁面
