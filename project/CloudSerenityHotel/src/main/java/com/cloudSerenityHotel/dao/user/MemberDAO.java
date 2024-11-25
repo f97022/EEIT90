@@ -14,8 +14,8 @@ import com.cloudSerenityHotel.utils.getTimeUtils;
 
 public class MemberDAO {
 	private static final String INSERT = "INSERT INTO members"
-			+ "(member_name,gender,birthday,phone,personal_id_no,country,address,passport_no,register_date,update_time)"
-			+ " VALUES(?,?,?,?,?,?,?,?,?,?)";
+			+ "(userid,member_name,gender,birthday,phone,personal_id_no,country,address,passport_no,register_date,update_time)"
+			+ " VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE = "UPDATE members SET "
 			+ "member_name=?,gender=?,birthday=?,phone=?,personal_id_no=?,country=?,address=?,passport_no=?,update_time=?"
 			+ " WHERE userid =?";
@@ -29,16 +29,17 @@ public class MemberDAO {
 		PreparedStatement stmt =null;
 		try {
 			stmt = conn.prepareStatement(INSERT);
-			stmt.setString(1,bean.getMemberName());
-			stmt.setString(2,bean.getGender());
-			stmt.setDate(3,(Date) bean.getBirthday());
-			stmt.setString(4,bean.getPhone());
-			stmt.setString(5,bean.getPersonalIdNo());
-			stmt.setString(6,bean.getCountry());
-			stmt.setString(7,bean.getAddress());
-			stmt.setString(8,bean.getPassportNo());
-			stmt.setTimestamp(9,getTime.getNowTime());
+			stmt.setInt(1,bean.getUserId());
+			stmt.setString(2,bean.getMemberName());
+			stmt.setString(3,bean.getGender());
+			stmt.setDate(4,(Date) bean.getBirthday());
+			stmt.setString(5,bean.getPhone());
+			stmt.setString(6,bean.getPersonalIdNo());
+			stmt.setString(7,bean.getCountry());
+			stmt.setString(8,bean.getAddress());
+			stmt.setString(9,bean.getPassportNo());
 			stmt.setTimestamp(10,getTime.getNowTime());
+			stmt.setTimestamp(11,getTime.getNowTime());
 			insertCount = stmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

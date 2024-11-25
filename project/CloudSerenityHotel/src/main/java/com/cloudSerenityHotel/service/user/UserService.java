@@ -1,5 +1,6 @@
 package com.cloudSerenityHotel.service.user;
 
+import com.cloudSerenityHotel.bean.user.MemberBean;
 import com.cloudSerenityHotel.bean.user.UserBean;
 import com.cloudSerenityHotel.dao.user.MemberDAO;
 import com.cloudSerenityHotel.dao.user.UserDAO;
@@ -24,5 +25,20 @@ public class UserService {
 			
 			return null;
 		}
+	}
+	
+	//註冊
+	public int register(UserBean user , MemberBean member) {
+		int addUser = userDAO.addUser(user);
+		if(addUser > 0) {
+			UserBean getUser = userDAO.findUserByEmail(user.getEmail());
+			int getUserId = getUser.getUserId();
+			member.setUserId(getUserId);
+			int addmember = memberDAO.addMemberData(member);
+			if(addmember > 0) {
+				return 1;
+			}
+		}
+		return 0;
 	}
 }
