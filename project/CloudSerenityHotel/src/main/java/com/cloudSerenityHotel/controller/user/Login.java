@@ -29,28 +29,32 @@ public class Login extends HttpServlet {
 			String status = user.getUserStatus();
 			if (status.equals("Logged_out")) { // 判斷帳號是否已註銷
 				request.setAttribute("errorMessage", " 該帳號已註銷，有問題請詢問客服!");
-				request.getRequestDispatcher("/static/login.jsp").forward(request, response);
+				request.getRequestDispatcher("/static/user/login.jsp").forward(request, response);
 			} else if (status.equals("In_use")) { // 狀態使用中 檢查身分組轉發到符合身分組的頁面
 				String identity = user.getUserIdentity();
+				String userName = user.getUserName();
+				Integer userId = user.getUserId();
 				session.setAttribute("identity", identity); //設定身分組 session
+				session.setAttribute("userName", userName); //設定使用者名稱 session
+				session.setAttribute("userId", userId); //設定使用者編號 session
 				
 				// 檢查身分組
 				if (identity.equals("admin")) { //管理員
-					request.getRequestDispatcher("/static/admin.jsp").forward(request, response);
+					request.getRequestDispatcher("/static/user/protected/adminDashBoard.jsp").forward(request, response);
 				} else if (identity.equals("user")) { //會員
-					request.getRequestDispatcher("/static/main.jsp").forward(request, response);
+					request.getRequestDispatcher("/static/user/protected/userDashboard.jsp").forward(request, response);
 				} else { //除admin和user以外的 都是異常身分組
 					request.setAttribute("errorMessage", " 該帳號出現問題，請詢問客服!");
-					request.getRequestDispatcher("/static/login.jsp").forward(request, response);
+					request.getRequestDispatcher("/static/user/login.jsp").forward(request, response);
 				}
 
 			} else { // 非註銷非使用中 屬於狀態異常
 				request.setAttribute("errorMessage", " 該帳號出現問題，請詢問客服!");
-				request.getRequestDispatcher("/static/login.jsp").forward(request, response);
+				request.getRequestDispatcher("/static/user/login.jsp").forward(request, response);
 			}
 		} else { // 不存在 為帳密錯誤
 			request.setAttribute("errorMessage", " 錯誤的Email或密碼");
-			request.getRequestDispatcher("/static/login.jsp").forward(request, response);
+			request.getRequestDispatcher("/static/user/login.jsp").forward(request, response);
 		}
 
 	}

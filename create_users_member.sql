@@ -2,6 +2,7 @@
 --帳號
 CREATE TABLE users (
 userid INT IDENTITY(1,1) NOT NULL PRIMARY KEY, --使用者編號(主鍵)
+user_name NVARCHAR(100) NOT NULL , --使用者姓名
 email NVARCHAR(Max) NOT NULL , --電子信箱
 password NVARCHAR(100) NOT NULL , --密碼
 update_time DATETIME NOT NULL , --帳號更新時間

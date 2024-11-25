@@ -18,7 +18,7 @@ public class Logout extends HttpServlet {
 		if (session != null) {
 		    session.invalidate(); // 使 Session 無效化
 		}
-		response.sendRedirect("login.jsp"); // 重定向到登入頁面
+		response.sendRedirect("../static/user/login.jsp"); // 重定向到登入頁面
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

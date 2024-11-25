@@ -10,10 +10,12 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
 
 import java.io.IOException;
 
-@WebFilter("/user/*")
+//@WebFilter("/*")
 public class LoginFilter extends HttpFilter implements Filter {
        
 	private static final long serialVersionUID = 1L;
@@ -31,16 +33,22 @@ public class LoginFilter extends HttpFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
+        
         // 獲取當前請求的 Session
         String user = (String) httpRequest.getSession().getAttribute("identity");
+//        String userName = (String) httpRequest.getSession().getAttribute("userName");
+//        Integer userId = (Integer) httpRequest.getSession().getAttribute("userId");
 
         // 定義需要身份驗證的路徑
         String requestURI = httpRequest.getRequestURI();
-        boolean isProtectedResource = requestURI.startsWith("/user/protected");
+        if (requestURI.endsWith("/static/user/login.jsp")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-        if (isProtectedResource && user == null) {
+        if (user == null) {
             // 用戶未登入，重定向到登入頁面
-            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login.jsp");
+            httpResponse.sendRedirect(httpRequest.getContextPath()+ "/static/user/login.jsp");
             return;
         }
         

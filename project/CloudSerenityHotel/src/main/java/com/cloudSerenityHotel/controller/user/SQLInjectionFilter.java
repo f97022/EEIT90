@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-@WebFilter("/user/*") // 適用於所有請求
+@WebFilter("/*") // 適用於所有請求
 public class SQLInjectionFilter extends HttpFilter implements Filter {
 
 	private static final long serialVersionUID = 1L;

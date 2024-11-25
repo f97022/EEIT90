@@ -15,6 +15,7 @@ public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Integer userId; //使用者編號
+	private String userName; //使用者名稱
 	private String email; //電子信箱
 	private String password; //密碼
 	private Date updateTime; //帳號更新時間

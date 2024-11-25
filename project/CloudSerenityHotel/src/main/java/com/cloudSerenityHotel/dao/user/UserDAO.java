@@ -12,7 +12,7 @@ import com.cloudSerenityHotel.utils.JDBCUtils;
 import com.cloudSerenityHotel.utils.getTimeUtils;
 
 public class UserDAO {
-	private static final String INSERT = "INSERT INTO users(email,password,user_status,user_identity,update_time) VALUES(?,?,'In_use',?,?)";
+	private static final String INSERT = "INSERT INTO users(user_name,email,password,user_status,user_identity,update_time) VALUES(?,?,?,'In_use',?,?)";
 	private static final String DELETE = "UPDATE users SET user_status = 'Logged_out',update_time=? WHERE userid =?";
 	private static final String RECOVER = "UPDATE users SET user_status = 'In_use',update_time=? WHERE userid =?";
 	private static final String UPDATE_EMAIL = "UPDATE users SET email=?,update_time=? WHERE userid =?";
@@ -28,10 +28,11 @@ public class UserDAO {
 		PreparedStatement stmt =null;
 		try {
 			stmt = conn.prepareStatement(INSERT);
-			stmt.setString(1,bean.getEmail());
-			stmt.setString(2,bean.getPassword());
-			stmt.setString(3,bean.getUserIdentity());
-			stmt.setTimestamp(4,getTime.getNowTime());
+			stmt.setString(1,bean.getUserName());
+			stmt.setString(2,bean.getEmail());
+			stmt.setString(3,bean.getPassword());
+			stmt.setString(4,bean.getUserIdentity());
+			stmt.setTimestamp(5,getTime.getNowTime());
 			insertCount = stmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -120,6 +121,7 @@ public class UserDAO {
 			if(rs.next()) {
 				user = new UserBean();
 				user.setUserId(rs.getInt("userid"));
+				user.setUserName(rs.getString("user_name"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
 				user.setUserStatus(rs.getString("user_status"));
@@ -145,6 +147,7 @@ public class UserDAO {
 			if(rs.next()) {
 				user = new UserBean();
 				user.setUserId(rs.getInt("userid"));
+				user.setUserName(rs.getString("user_name"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
 				user.setUserStatus(rs.getString("user_status"));
@@ -170,6 +173,7 @@ public class UserDAO {
 			while(rs.next()) {
 				user = new UserBean();
 				user.setUserId(rs.getInt("userid"));
+				user.setUserName(rs.getString("user_name"));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
 				user.setUserStatus(rs.getString("user_status"));
