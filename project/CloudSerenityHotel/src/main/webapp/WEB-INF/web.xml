@@ -19,4 +19,41 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <filter>
+    <display-name>EncodingFilter</display-name>
+    <filter-name>EncodingFilter</filter-name>
+    <filter-class>com.cloudSerenityHotel.controller.user.EncodingFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>EncodingFilter</filter-name>
+    <url-pattern>/EncodingFilter</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>SQLInjectionFilter</display-name>
+    <filter-name>SQLInjectionFilter</filter-name>
+    <filter-class>com.cloudSerenityHotel.controller.user.SQLInjectionFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SQLInjectionFilter</filter-name>
+    <url-pattern>/SQLInjectionFilter</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>IdentityFilter</display-name>
+    <filter-name>IdentityFilter</filter-name>
+    <filter-class>com.cloudSerenityHotel.controller.user.IdentityFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>IdentityFilter</filter-name>
+    <url-pattern>/IdentityFilter</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Logout</display-name>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>com.cloudSerenityHotel.controller.user.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
 </web-app>

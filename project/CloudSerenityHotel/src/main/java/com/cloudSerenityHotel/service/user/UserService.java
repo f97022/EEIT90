@@ -12,7 +12,7 @@ public class UserService {
 	public UserBean login(String email,String password) {
 		UserBean user = userDAO.findUserByEmail(email);
 		//判斷帳號是否存在
-		if (user != null) {//存在的話 就確認帳號狀態
+		if (user != null) {//存在
 			String truePassword = user.getPassword();
 			if (truePassword.equals(password)) { //判斷密碼是否正確
 				return user;

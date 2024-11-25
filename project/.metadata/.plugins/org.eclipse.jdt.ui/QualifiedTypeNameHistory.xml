@@ -19,7 +19,7 @@
     <fullyQualifiedTypeName name="com.cloudSerenityHotel.dao.user.UserDAO"/>
     <fullyQualifiedTypeName name="jakarta.servlet.http.HttpSession"/>
     <fullyQualifiedTypeName name="com.cloudSerenityHotel.dao.user.MemberDAO"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="com.cloudSerenityHotel.service.user.UserService"/>
     <fullyQualifiedTypeName name="com.cloudSerenityHotel.bean.user.UserBean"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
 </qualifiedTypeNameHistroy>
