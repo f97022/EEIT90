@@ -19,7 +19,8 @@ public class MemberDAO {
 	private static final String UPDATE = "UPDATE members SET "
 			+ "member_name=?,gender=?,birthday=?,phone=?,personal_id_no=?,country=?,address=?,passport_no=?,update_time=?"
 			+ " WHERE userid =?";
-	private static final String GETONE = "SELECT * FROM members WHERE userid =?";
+	private static final String GETONE_ID = "SELECT * FROM members WHERE userid =?";
+	private static final String GETONE_NAME = "SELECT * FROM members WHERE member_name =?";
 	private static final String GETALL = "SELECT * FROM members";
 	getTimeUtils getTime = new getTimeUtils();
 	
@@ -81,7 +82,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		MemberBean memberData = null;
 		try {
-			stmt = conn.prepareStatement(GETONE);
+			stmt = conn.prepareStatement(GETONE_ID);
 			stmt.setInt(1, userid);
 			rs = stmt.executeQuery();
 			if(rs.next()) {
@@ -104,6 +105,37 @@ public class MemberDAO {
 			JDBCUtils.closeResource(conn, stmt, rs);
 		}
 		return memberData;
+	}
+	public List<MemberBean> findMemberDataByName(String memberName) {
+		Connection conn =JDBCUtils.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<MemberBean> memberDatas = new ArrayList<>();
+		try {
+			stmt = conn.prepareStatement(GETONE_NAME);
+			rs = stmt.executeQuery();
+			MemberBean memberData = null;
+			while(rs.next()) {
+				memberData = new MemberBean();
+				memberData.setUserId(rs.getInt("userid"));
+				memberData.setMemberName(rs.getString("member_name"));
+				memberData.setGender(rs.getString("gender"));
+				memberData.setBirthday(rs.getDate("birthday"));
+				memberData.setPhone(rs.getString("phone"));
+				memberData.setPersonalIdNo(rs.getString("personal_id_no"));
+				memberData.setCountry(rs.getString("country"));
+				memberData.setAddress(rs.getString("address"));
+				memberData.setPassportNo(rs.getString("passport_no"));
+				memberData.setRegisterDate(rs.getTimestamp("register_date"));
+				memberData.setUpdateTime(rs.getTimestamp("update_time"));
+				memberDatas.add(memberData);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			JDBCUtils.closeResource(conn, stmt, rs);
+		}
+		return memberDatas;
 	}
 	public List<MemberBean> findAllMemberData() {
 		Connection conn =JDBCUtils.getConnection();

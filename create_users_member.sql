@@ -17,7 +17,7 @@ CREATE TABLE members (
 userid INT NOT NULL PRIMARY KEY, --使用者編號(主鍵)(連接users)
 member_name NVARCHAR(100) NOT NULL , --會員姓名
 gender NVARCHAR(10) NOT NULL 
-CHECK (gender = 'Male' OR gender = 'Female'), --性別(男Male、女Female、其他Other)
+CHECK (gender = 'Male' OR gender = 'Female' OR gender = 'Other'), --性別(男Male、女Female、其他Other)
 birthday DATE NOT NULL , --生日
 phone NVARCHAR(50) NOT NULL , --電話
 personal_id_no NVARCHAR(Max) , --身分證字號(外國人沒有身分證字號)

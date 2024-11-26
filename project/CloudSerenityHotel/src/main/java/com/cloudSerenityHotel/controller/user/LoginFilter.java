@@ -17,41 +17,39 @@ import java.io.IOException;
 
 //@WebFilter("/*")
 public class LoginFilter extends HttpFilter implements Filter {
-       
+
 	private static final long serialVersionUID = 1L;
 
 	public LoginFilter() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public void destroy() {
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        // 強制轉換為 HttpServletRequest 和 HttpServletResponse 因為要取session
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
-        
-        // 獲取當前請求的 Session
-        String user = (String) httpRequest.getSession().getAttribute("identity");
-//        String userName = (String) httpRequest.getSession().getAttribute("userName");
-//        Integer userId = (Integer) httpRequest.getSession().getAttribute("userId");
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
+		// 強制轉換為 HttpServletRequest 和 HttpServletResponse 因為要取session
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-        // 定義需要身份驗證的路徑
-        String requestURI = httpRequest.getRequestURI();
-        if (requestURI.endsWith("/static/user/login.jsp")) {
-            chain.doFilter(request, response);
-            return;
-        }
+		// 獲取當前請求的 Session
+		String user = (String) httpRequest.getSession().getAttribute("identity");
 
-        if (user == null) {
-            // 用戶未登入，重定向到登入頁面
-            httpResponse.sendRedirect(httpRequest.getContextPath()+ "/static/user/login.jsp");
-            return;
-        }
-        
+		// 跳過不需要身份驗證的路徑
+		String requestURI = httpRequest.getRequestURI();
+		if (requestURI.endsWith("/static/user/login.jsp") || requestURI.endsWith("/static/user/register.html")) {
+			chain.doFilter(request, response);
+			return;
+		}
+
+		if (user == null) {
+			// 用戶未登入，重定向到登入頁面
+			httpResponse.sendRedirect(httpRequest.getContextPath() + "/static/user/login.jsp");
+			return;
+		}
+
 		chain.doFilter(request, response);
 	}
 

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -21,6 +23,15 @@
 	color: #c70000;
 	font-weight: bold;
 }
+
+#errorMessage {
+	padding: 10px 0;
+	margin: 0;
+	color: #c70000;
+	font-weight: bold;
+	visibility: hidden;
+	text-align: center;
+}
 </style>
 </head>
 
@@ -31,7 +42,7 @@
 		</div>
 	</nav>
 	<div class="container ">
-		<form method="post" action="/user/register">
+		<form method="post" action="../user/register">
 			<h2 style='text-align: center; margin: 0;'>歡迎註冊</h2>
 			<br> <label for="identity" class="form-label fs-5">身分別</label> <select
 				class="form-select w-25" id="identity" required>
@@ -77,6 +88,15 @@
 				name="passport_no" placeholder="請輸入護照號碼" required> <br>
 			<button type="submit" class="btn btn-primary">註冊</button>
 		</form>
+		<p id="errorMessage">
+			<i class="fa-solid fa-circle-xmark"></i>
+			<%
+			String errorMessage = (String) request.getAttribute("errorMessage");
+			if (errorMessage != null) {
+				out.print(errorMessage);
+			}
+			%>
+		</p>
 	</div>
 
 
@@ -107,7 +127,20 @@
                 });
             })
             .catch(error => console.error('Error fetching country data:', error));
+		//處理錯誤訊息
+		$(document).ready(function () {
+			showErrorMsg(); // 在頁面加載時執行
+		});
 
+		function showErrorMsg() {
+			let msg = $('#errorMessage').text().trim(); // 取得錯誤訊息
+			if (msg.length > 0) { // 如果訊息不為空，顯示錯誤訊息
+				$('#errorMessage').css('visibility', 'visible');
+			} else { // 如果沒有訊息，隱藏錯誤訊息
+				$('#errorMessage').css('visibility', 'hidden');
+			}
+		}
+        
         //判斷身分別 移除必填屬性
         addEventListener("load", e => {
             // console.log("load done");
