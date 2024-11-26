@@ -39,7 +39,7 @@ public class LoginFilter extends HttpFilter implements Filter {
 
 		// 跳過不需要身份驗證的路徑
 		String requestURI = httpRequest.getRequestURI();
-		if (requestURI.endsWith("/static/user/login.jsp") || requestURI.endsWith("/static/user/register.html")) {
+		if (requestURI.endsWith("/static/user/login.jsp") || requestURI.endsWith("/static/user/register.jsp")) {
 			chain.doFilter(request, response);
 			return;
 		}
