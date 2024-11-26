@@ -1,7 +1,7 @@
 package com.cloudSerenityHotel.bean.user;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class UserBean implements Serializable {
 	private String userName; //使用者名稱
 	private String email; //電子信箱
 	private String password; //密碼
-	private Date updateTime; //帳號更新時間
+	private LocalDateTime updateTime; //帳號更新時間
 	private String userStatus; //使用者狀態
 	private String userIdentity; //使用者身分
 	

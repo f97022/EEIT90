@@ -48,7 +48,7 @@
 		</div>
 	</nav>
 	<div class="login container">
-		<form class="loginform" method="post" action="../user/login">
+		<form class="loginform" method="post" action="/CloudSerenityHotel/user/login">
 			<h2 style='text-align: center; margin: 0;'>歡迎登入</h2>
 			<br>
 			<label for="email" class="form-label fs-5">電子信箱</label>
@@ -71,7 +71,7 @@
 				%>
 			</p>
 			<p style='text-align: center; margin: 0;'>
-				沒有帳號? <a href="register.html">立即註冊</a>
+				沒有帳號? <a href="register.jsp">立即註冊</a>
 			</p>
 		</form>
 	</div>

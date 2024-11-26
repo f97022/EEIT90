@@ -30,3 +30,5 @@ update_time DATETIME NOT NULL --資料更新時間
 
 --SELECT * FROM users;
 --TRUNCATE TABLE users;
+--SELECT * FROM members;
+--TRUNCATE TABLE members;

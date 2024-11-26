@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import com.cloudSerenityHotel.bean.user.MemberBean;
@@ -32,15 +34,8 @@ public class Register extends HttpServlet {
 		String address = request.getParameter("address");
 		String passportNo = request.getParameter("passport_no");
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date birthday = null;
-		try {
-			birthday = formatter.parse(birthdayStr);
-		} catch (ParseException e) {
-            request.setAttribute("error", "生日格式不正確，請輸入 yyyy-MM-dd 格式");
-            request.getRequestDispatcher("/static/user/register.jsp").forward(request, response);
-            return;
-		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate birthday = LocalDate.parse(birthdayStr , formatter);
 		
 		UserBean user = new UserBean();
 		user.setEmail(email);
@@ -64,8 +59,8 @@ public class Register extends HttpServlet {
 			response.sendRedirect(request.getContextPath() +"/static/user/login.jsp");
 		}else {
 			//失敗就轉發回註冊頁面
-            request.setAttribute("error", "註冊失敗，請檢查輸入資訊或稍後重試");
-            request.getRequestDispatcher("/static/register.jsp").forward(request, response);
+            request.setAttribute("errorMessage", "註冊失敗，請檢查輸入資訊或稍後重試");
+            request.getRequestDispatcher("/static/user/register.jsp").forward(request, response);
 		}
 		
 	}

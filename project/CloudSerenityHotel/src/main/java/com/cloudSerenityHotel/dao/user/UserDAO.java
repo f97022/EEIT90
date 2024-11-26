@@ -37,8 +37,8 @@ public class UserDAO {
 			stmt.setTimestamp(5,getTime.getNowTime());
 			insertCount = stmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 0;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
@@ -55,7 +55,8 @@ public class UserDAO {
 			stmt.setTimestamp(1,getTime.getNowTime());
 			deleteCount = stmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
@@ -71,7 +72,8 @@ public class UserDAO {
 			stmt.setTimestamp(1,getTime.getNowTime());
 			recoverCount = stmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
@@ -86,7 +88,8 @@ public class UserDAO {
 			stmt.setInt(1,userid);
 			removeCount = stmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
@@ -103,7 +106,8 @@ public class UserDAO {
 			stmt.setTimestamp(2,getTime.getNowTime());
 			updateCount = stmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
@@ -120,7 +124,8 @@ public class UserDAO {
 			stmt.setTimestamp(2,getTime.getNowTime());
 			updateCount = stmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
@@ -143,10 +148,11 @@ public class UserDAO {
 				user.setPassword(rs.getString("password"));
 				user.setUserStatus(rs.getString("user_status"));
 				user.setUserIdentity(rs.getString("user_identity"));
-				user.setUpdateTime(rs.getTimestamp("update_time"));
+				user.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, rs);
 		}
@@ -169,10 +175,11 @@ public class UserDAO {
 				user.setPassword(rs.getString("password"));
 				user.setUserStatus(rs.getString("user_status"));
 				user.setUserIdentity(rs.getString("user_identity"));
-				user.setUpdateTime(rs.getTimestamp("update_time"));
+				user.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, rs);
 		}
@@ -195,11 +202,12 @@ public class UserDAO {
 				user.setPassword(rs.getString("password"));
 				user.setUserStatus(rs.getString("user_status"));
 				user.setUserIdentity(rs.getString("user_identity"));
-				user.setUpdateTime(rs.getTimestamp("update_time"));
+				user.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
 				users.add(user);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, rs);
 		}
@@ -222,7 +230,7 @@ public class UserDAO {
 				user.setPassword(rs.getString("password"));
 				user.setUserStatus(rs.getString("user_status"));
 				user.setUserIdentity(rs.getString("user_identity"));
-				user.setUpdateTime(rs.getTimestamp("update_time"));
+				user.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
 				users.add(user);
 			}
 		} catch (Exception e) {

@@ -42,7 +42,7 @@
 		</div>
 	</nav>
 	<div class="container ">
-		<form method="post" action="../user/register">
+		<form method="post" action="/CloudSerenityHotel/user/register">
 			<h2 style='text-align: center; margin: 0;'>歡迎註冊</h2>
 			<br> <label for="identity" class="form-label fs-5">身分別</label> <select
 				class="form-select w-25" id="identity" required>

@@ -33,7 +33,7 @@ public class MemberDAO {
 			stmt.setInt(1,bean.getUserId());
 			stmt.setString(2,bean.getMemberName());
 			stmt.setString(3,bean.getGender());
-			stmt.setDate(4,(Date) bean.getBirthday());
+			stmt.setDate(4,java.sql.Date.valueOf(bean.getBirthday()));
 			stmt.setString(5,bean.getPhone());
 			stmt.setString(6,bean.getPersonalIdNo());
 			stmt.setString(7,bean.getCountry());
@@ -43,8 +43,8 @@ public class MemberDAO {
 			stmt.setTimestamp(11,getTime.getNowTime());
 			insertCount = stmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 0;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
@@ -59,7 +59,7 @@ public class MemberDAO {
 			stmt = conn.prepareStatement(UPDATE);
 			stmt.setString(1,bean.getMemberName());
 			stmt.setString(2,bean.getGender());
-			stmt.setDate(3,(Date) bean.getBirthday());
+			stmt.setDate(3,java.sql.Date.valueOf(bean.getBirthday()));
 			stmt.setString(4,bean.getPhone());
 			stmt.setString(5,bean.getPersonalIdNo());
 			stmt.setString(6,bean.getCountry());
@@ -69,7 +69,8 @@ public class MemberDAO {
 			stmt.setInt(10,bean.getUserId());
 			updateCount = stmt.executeUpdate();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
@@ -90,17 +91,18 @@ public class MemberDAO {
 				memberData.setUserId(rs.getInt("userid"));
 				memberData.setMemberName(rs.getString("member_name"));
 				memberData.setGender(rs.getString("gender"));
-				memberData.setBirthday(rs.getDate("birthday"));
+				memberData.setBirthday(rs.getDate("birthday").toLocalDate());
 				memberData.setPhone(rs.getString("phone"));
 				memberData.setPersonalIdNo(rs.getString("personal_id_no"));
 				memberData.setCountry(rs.getString("country"));
 				memberData.setAddress(rs.getString("address"));
 				memberData.setPassportNo(rs.getString("passport_no"));
-				memberData.setRegisterDate(rs.getTimestamp("register_date"));
-				memberData.setUpdateTime(rs.getTimestamp("update_time"));
+				memberData.setRegisterDate(rs.getTimestamp("register_date").toLocalDateTime());
+				memberData.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, rs);
 		}
@@ -120,18 +122,19 @@ public class MemberDAO {
 				memberData.setUserId(rs.getInt("userid"));
 				memberData.setMemberName(rs.getString("member_name"));
 				memberData.setGender(rs.getString("gender"));
-				memberData.setBirthday(rs.getDate("birthday"));
+				memberData.setBirthday(rs.getDate("birthday").toLocalDate());
 				memberData.setPhone(rs.getString("phone"));
 				memberData.setPersonalIdNo(rs.getString("personal_id_no"));
 				memberData.setCountry(rs.getString("country"));
 				memberData.setAddress(rs.getString("address"));
 				memberData.setPassportNo(rs.getString("passport_no"));
-				memberData.setRegisterDate(rs.getTimestamp("register_date"));
-				memberData.setUpdateTime(rs.getTimestamp("update_time"));
+				memberData.setRegisterDate(rs.getTimestamp("register_date").toLocalDateTime());
+				memberData.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
 				memberDatas.add(memberData);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, rs);
 		}
@@ -151,18 +154,19 @@ public class MemberDAO {
 				memberData.setUserId(rs.getInt("userid"));
 				memberData.setMemberName(rs.getString("member_name"));
 				memberData.setGender(rs.getString("gender"));
-				memberData.setBirthday(rs.getDate("birthday"));
+				memberData.setBirthday(rs.getDate("birthday").toLocalDate());
 				memberData.setPhone(rs.getString("phone"));
 				memberData.setPersonalIdNo(rs.getString("personal_id_no"));
 				memberData.setCountry(rs.getString("country"));
 				memberData.setAddress(rs.getString("address"));
 				memberData.setPassportNo(rs.getString("passport_no"));
-				memberData.setRegisterDate(rs.getTimestamp("register_date"));
-				memberData.setUpdateTime(rs.getTimestamp("update_time"));
+				memberData.setRegisterDate(rs.getTimestamp("register_date").toLocalDateTime());
+				memberData.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
 				memberDatas.add(memberData);
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return null;
 		}finally {
 			JDBCUtils.closeResource(conn, stmt, rs);
 		}
