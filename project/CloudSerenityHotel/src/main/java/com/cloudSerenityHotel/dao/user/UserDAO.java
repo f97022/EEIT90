@@ -16,12 +16,16 @@ public class UserDAO {
 	private static final String DELETE = "UPDATE users SET user_status = 'Logged_out',update_time=? WHERE userid =?";
 	private static final String RECOVER = "UPDATE users SET user_status = 'In_use',update_time=? WHERE userid =?";
 	private static final String REMOVE = " DELETE FROM users WHERE userid =?";
+	private static final String UPDATE_NAME = "UPDATE users SET user_name=?,update_time=? WHERE userid =?";
 	private static final String UPDATE_EMAIL = "UPDATE users SET email=?,update_time=? WHERE userid =?";
 	private static final String UPDATE_PASSWORD = "UPDATE users SET password=?,update_time=? WHERE userid =?";
 	private static final String GETONE_ID = "SELECT * FROM users WHERE userid =?";
 	private static final String GETONE_EMAIL = "SELECT * FROM users WHERE email =?";
-	private static final String GETONE_NAME = "SELECT * FROM users WHERE user_name =?";
+	private static final String GETONE_NAME_ADMIN = "SELECT * FROM users WHERE user_name =? AND user_identity = 'admin'";
+	private static final String GETONE_NAME_USER = "SELECT * FROM users WHERE user_name =? AND user_identity = 'user'";
 	private static final String GETALL = "SELECT * FROM users";
+	private static final String GETALL_ADMIN = "SELECT * FROM users WHERE user_identity = 'admin'";
+	private static final String GETALL_USER = "SELECT * FROM users WHERE user_identity = 'user'";
 	getTimeUtils getTime = new getTimeUtils();
 	
 	public int addUser(UserBean bean) {
@@ -94,6 +98,24 @@ public class UserDAO {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
 		return removeCount;
+	}
+	public int updateUserName(Integer userid,String name) {
+		int updateCount = 0;
+		Connection conn =JDBCUtils.getConnection();
+		PreparedStatement stmt =null;
+		try {
+			stmt = conn.prepareStatement(UPDATE_EMAIL);
+			stmt.setString(1, name);
+			stmt.setInt(3,userid);
+			stmt.setTimestamp(2,getTime.getNowTime());
+			updateCount = stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			JDBCUtils.closeResource(conn, stmt, null);
+		}
+		return updateCount;
 	}
 	public int updateUserEmail(Integer userid,String email) {
 		int updateCount = 0;
@@ -185,13 +207,41 @@ public class UserDAO {
 		}
 		return user;
 	}
-	public List<UserBean> findUserByName(String userName) {
+	public List<UserBean> findUserByNameIsAdmin(String userName) {
 		Connection conn =JDBCUtils.getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<UserBean> users = new ArrayList<>();
 		try {
-			stmt = conn.prepareStatement(GETONE_NAME);
+			stmt = conn.prepareStatement(GETONE_NAME_ADMIN);
+			rs = stmt.executeQuery();
+			UserBean user = null;
+			while(rs.next()) {
+				user = new UserBean();
+				user.setUserId(rs.getInt("userid"));
+				user.setUserName(rs.getString("user_name"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setUserStatus(rs.getString("user_status"));
+				user.setUserIdentity(rs.getString("user_identity"));
+				user.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
+				users.add(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			JDBCUtils.closeResource(conn, stmt, rs);
+		}
+		return users;
+	}
+	public List<UserBean> findUserByNameIsUser(String userName) {
+		Connection conn =JDBCUtils.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<UserBean> users = new ArrayList<>();
+		try {
+			stmt = conn.prepareStatement(GETONE_NAME_USER);
 			rs = stmt.executeQuery();
 			UserBean user = null;
 			while(rs.next()) {
@@ -220,6 +270,60 @@ public class UserDAO {
 		List<UserBean> users = new ArrayList<>();
 		try {
 			stmt = conn.prepareStatement(GETALL);
+			rs = stmt.executeQuery();
+			UserBean user = null;
+			while(rs.next()) {
+				user = new UserBean();
+				user.setUserId(rs.getInt("userid"));
+				user.setUserName(rs.getString("user_name"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setUserStatus(rs.getString("user_status"));
+				user.setUserIdentity(rs.getString("user_identity"));
+				user.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
+				users.add(user);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			JDBCUtils.closeResource(conn, stmt, rs);
+		}
+		return users;
+	}
+	public List<UserBean> findAllUserIsAdmin() {
+		Connection conn =JDBCUtils.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<UserBean> users = new ArrayList<>();
+		try {
+			stmt = conn.prepareStatement(GETALL_ADMIN);
+			rs = stmt.executeQuery();
+			UserBean user = null;
+			while(rs.next()) {
+				user = new UserBean();
+				user.setUserId(rs.getInt("userid"));
+				user.setUserName(rs.getString("user_name"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setUserStatus(rs.getString("user_status"));
+				user.setUserIdentity(rs.getString("user_identity"));
+				user.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
+				users.add(user);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			JDBCUtils.closeResource(conn, stmt, rs);
+		}
+		return users;
+	}
+	public List<UserBean> findAllUserIsUser() {
+		Connection conn =JDBCUtils.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		List<UserBean> users = new ArrayList<>();
+		try {
+			stmt = conn.prepareStatement(GETALL_USER);
 			rs = stmt.executeQuery();
 			UserBean user = null;
 			while(rs.next()) {
