@@ -19,9 +19,15 @@ public class MemberDAO {
 	private static final String UPDATE = "UPDATE members SET "
 			+ "member_name=?,gender=?,birthday=?,phone=?,personal_id_no=?,country=?,address=?,passport_no=?,update_time=?"
 			+ " WHERE userid =?";
-	private static final String GETONE_ID = "SELECT * FROM members WHERE userid =?";
-	private static final String GETONE_NAME = "SELECT * FROM members WHERE member_name =?";
-	private static final String GETALL = "SELECT * FROM members";
+	private static final String GETONE_ID = "SELECT "
+			+"m.userid, u.email,u.password,u.update_time AS acc_update_time, u.user_status,m.member_name,m.gender,m.birthday,m.phone,m.personal_id_no,m.country,m.address,m.passport_no,m.register_date,m.update_time AS data_update_time"+
+			" FROM users u JOIN members m ON u.userid = m.userid WHERE u.userid =?";
+	private static final String GETALL_NAME = "SELECT "
+			+"m.userid, u.email,u.password,u.update_time AS acc_update_time, u.user_status,m.member_name,m.gender,m.birthday,m.phone,m.personal_id_no,m.country,m.address,m.passport_no,m.register_date,m.update_time AS data_update_time"+ 
+			" FROM users u JOIN members m ON u.userid = m.userid WHERE m.member_name LIKE ?";
+	private static final String GETALL = "SELECT "
+			+"m.userid, u.email,u.password,u.update_time AS acc_update_time, u.user_status,m.member_name,m.gender,m.birthday,m.phone,m.personal_id_no,m.country,m.address,m.passport_no,m.register_date,m.update_time AS data_update_time"+ 
+			" FROM users u JOIN members m ON u.userid = m.userid";
 	getTimeUtils getTime = new getTimeUtils();
 	
 	public int addMemberData(MemberBean bean) {
@@ -90,6 +96,10 @@ public class MemberDAO {
 				memberData = new MemberBean();
 				memberData.setUserId(rs.getInt("userid"));
 				memberData.setMemberName(rs.getString("member_name"));
+				memberData.setEmail(rs.getString("email"));
+				memberData.setPassword(rs.getString("password"));
+				memberData.setAccountUpdateTime(rs.getTimestamp("acc_update_time").toLocalDateTime());
+				memberData.setUserStatus(rs.getString("user_status"));
 				memberData.setGender(rs.getString("gender"));
 				memberData.setBirthday(rs.getDate("birthday").toLocalDate());
 				memberData.setPhone(rs.getString("phone"));
@@ -98,7 +108,7 @@ public class MemberDAO {
 				memberData.setAddress(rs.getString("address"));
 				memberData.setPassportNo(rs.getString("passport_no"));
 				memberData.setRegisterDate(rs.getTimestamp("register_date").toLocalDateTime());
-				memberData.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
+				memberData.setDataUpdateTime(rs.getTimestamp("data_update_time").toLocalDateTime());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,14 +124,18 @@ public class MemberDAO {
 		ResultSet rs = null;
 		List<MemberBean> memberDatas = new ArrayList<>();
 		try {
-			stmt = conn.prepareStatement(GETONE_NAME);
-			stmt.setString(1, memberName);
+			stmt = conn.prepareStatement(GETALL_NAME);
+			stmt.setString(1,"%" + memberName + "%");
 			rs = stmt.executeQuery();
 			MemberBean memberData = null;
 			while(rs.next()) {
 				memberData = new MemberBean();
 				memberData.setUserId(rs.getInt("userid"));
 				memberData.setMemberName(rs.getString("member_name"));
+				memberData.setEmail(rs.getString("email"));
+				memberData.setPassword(rs.getString("password"));
+				memberData.setAccountUpdateTime(rs.getTimestamp("acc_update_time").toLocalDateTime());
+				memberData.setUserStatus(rs.getString("user_status"));
 				memberData.setGender(rs.getString("gender"));
 				memberData.setBirthday(rs.getDate("birthday").toLocalDate());
 				memberData.setPhone(rs.getString("phone"));
@@ -130,7 +144,7 @@ public class MemberDAO {
 				memberData.setAddress(rs.getString("address"));
 				memberData.setPassportNo(rs.getString("passport_no"));
 				memberData.setRegisterDate(rs.getTimestamp("register_date").toLocalDateTime());
-				memberData.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
+				memberData.setDataUpdateTime(rs.getTimestamp("data_update_time").toLocalDateTime());
 				memberDatas.add(memberData);
 			}
 		} catch (Exception e) {
@@ -154,6 +168,10 @@ public class MemberDAO {
 				memberData = new MemberBean();
 				memberData.setUserId(rs.getInt("userid"));
 				memberData.setMemberName(rs.getString("member_name"));
+				memberData.setEmail(rs.getString("email"));
+				memberData.setPassword(rs.getString("password"));
+				memberData.setAccountUpdateTime(rs.getTimestamp("acc_update_time").toLocalDateTime());
+				memberData.setUserStatus(rs.getString("user_status"));
 				memberData.setGender(rs.getString("gender"));
 				memberData.setBirthday(rs.getDate("birthday").toLocalDate());
 				memberData.setPhone(rs.getString("phone"));
@@ -162,7 +180,7 @@ public class MemberDAO {
 				memberData.setAddress(rs.getString("address"));
 				memberData.setPassportNo(rs.getString("passport_no"));
 				memberData.setRegisterDate(rs.getTimestamp("register_date").toLocalDateTime());
-				memberData.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
+				memberData.setDataUpdateTime(rs.getTimestamp("data_update_time").toLocalDateTime());
 				memberDatas.add(memberData);
 			}
 		} catch (Exception e) {

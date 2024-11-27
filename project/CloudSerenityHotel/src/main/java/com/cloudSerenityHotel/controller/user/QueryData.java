@@ -33,9 +33,7 @@ public class QueryData extends HttpServlet {
 				request.setAttribute("userData", data);
 				request.getRequestDispatcher("/static/user/protected/queryResultsAdmin.jsp").forward(request, response);
 			}else { //user
-				List<UserBean> userData = userService.findUserDataIsUser(Integer.parseInt(queryKeyword));
 				List<MemberBean> memberData = userService.findMemberData(Integer.parseInt(queryKeyword));
-				request.setAttribute("userData", userData);
 				request.setAttribute("memberData", memberData);
 				request.getRequestDispatcher("/static/user/protected/queryResultsMember.jsp").forward(request, response);
 			}
@@ -45,9 +43,7 @@ public class QueryData extends HttpServlet {
 				request.setAttribute("userData", dataList);
 				request.getRequestDispatcher("/static/user/protected/queryResultsAdmin.jsp").forward(request, response);
 			}else { //user
-				List<UserBean> userDataList = userService.findUserDataIsUser(queryKeyword);
 				List<MemberBean> memberDataList = userService.findMemberData(queryKeyword);
-				request.setAttribute("userData", userDataList);
 				request.setAttribute("memberData", memberDataList);
 				request.getRequestDispatcher("/static/user/protected/queryResultsMember.jsp").forward(request, response);
 			}

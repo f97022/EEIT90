@@ -30,9 +30,7 @@ public class QueryAllData extends HttpServlet {
 			request.setAttribute("userData", dataList);
 			request.getRequestDispatcher("/static/user/protected/queryResultsAdmin.jsp").forward(request, response);
 		}else { //user
-			List<UserBean> userDataList = userService.findAllUserDataIsUser();
 			List<MemberBean> memberDataList = userService.findAllMemberData();
-			request.setAttribute("userData", userDataList);
 			request.setAttribute("memberData", memberDataList);
 			request.getRequestDispatcher("/static/user/protected/queryResultsMember.jsp").forward(request, response);
 		}

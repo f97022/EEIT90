@@ -23,8 +23,8 @@ public class UserDAO {
 	private static final String GETONE_ID_ADMIN = "SELECT * FROM users WHERE userid =? AND user_identity = 'admin'";
 	private static final String GETONE_ID_USER = "SELECT * FROM users WHERE userid =? AND user_identity = 'user'";
 	private static final String GETONE_EMAIL = "SELECT * FROM users WHERE email =?";
-	private static final String GETONE_NAME_ADMIN = "SELECT * FROM users WHERE user_name =? AND user_identity = 'admin'";
-	private static final String GETONE_NAME_USER = "SELECT * FROM users WHERE user_name =? AND user_identity = 'user'";
+	private static final String GETONE_NAME_ADMIN = "SELECT * FROM users WHERE user_name LIKE ? AND user_identity = 'admin'";
+	private static final String GETONE_NAME_USER = "SELECT * FROM users WHERE user_name LIKE ? AND user_identity = 'user'";
 	private static final String GETALL = "SELECT * FROM users";
 	private static final String GETALL_ADMIN = "SELECT * FROM users WHERE user_identity = 'admin'";
 	private static final String GETALL_USER = "SELECT * FROM users WHERE user_identity = 'user'";
@@ -270,7 +270,7 @@ public class UserDAO {
 		List<UserBean> users = new ArrayList<>();
 		try {
 			stmt = conn.prepareStatement(GETONE_NAME_ADMIN);
-			stmt.setString(1, userName);
+			stmt.setString(1,"%" + userName + "%");
 			rs = stmt.executeQuery();
 			UserBean user = null;
 			while(rs.next()) {
@@ -299,7 +299,7 @@ public class UserDAO {
 		List<UserBean> users = new ArrayList<>();
 		try {
 			stmt = conn.prepareStatement(GETONE_NAME_USER);
-			stmt.setString(1, userName);
+			stmt.setString(1,"%" + userName + "%");
 			rs = stmt.executeQuery();
 			UserBean user = null;
 			while(rs.next()) {

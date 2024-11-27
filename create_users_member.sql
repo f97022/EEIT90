@@ -32,3 +32,6 @@ update_time DATETIME NOT NULL --資料更新時間
 --TRUNCATE TABLE users;
 --SELECT * FROM members;
 --TRUNCATE TABLE members;
+--SELECT * FROM users u JOIN members m ON u.userid = m.userid;
+--SELECT m.userid, u.email,u.password,u.update_time AS acc_update_time, u.user_status,m.member_name,m.gender,m.birthday,m.phone,m.personal_id_no,m.country,m.address,m.passport_no,m.register_date,m.update_time AS data_update_time FROM users u JOIN members m ON u.userid = m.userid WHERE u.userid = 2;
+--SELECT * FROM users u JOIN members m ON u.userid = m.userid WHERE m.member_name LIKE '%member%';
