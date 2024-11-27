@@ -115,6 +115,7 @@ public class MemberDAO {
 		List<MemberBean> memberDatas = new ArrayList<>();
 		try {
 			stmt = conn.prepareStatement(GETONE_NAME);
+			stmt.setString(1, memberName);
 			rs = stmt.executeQuery();
 			MemberBean memberData = null;
 			while(rs.next()) {

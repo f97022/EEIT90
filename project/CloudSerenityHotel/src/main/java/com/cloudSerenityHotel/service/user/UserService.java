@@ -1,5 +1,6 @@
 package com.cloudSerenityHotel.service.user;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cloudSerenityHotel.bean.user.MemberBean;
@@ -55,23 +56,61 @@ public class UserService {
 	
 	//查詢使用者資料(admin)
 	//findByUserName()
-	public List<UserBean> findUserData(String name) {
-		return null;
+	public List<UserBean> findUserDataIsAdmin(String name) {
+		List<UserBean> userList = userDAO.findUserByNameIsAdmin(name);
+		return userList;
+	}
+	public List<UserBean> findUserDataIsUser(String name) {
+		List<UserBean> userList = userDAO.findUserByNameIsUser(name);
+		return userList;
 	}
 	//findByUserId
-	public UserBean findUserData(Integer userId) {
-		return null;
+	public List<UserBean> findUserDataIsAdmin(Integer userId) {
+		UserBean user = userDAO.findUserByIdIsAdmin(userId);
+		List<UserBean> users = new ArrayList<>();
+		if (user != null) {
+			users.add(user);
+		}
+		return users;
 	}
+	public List<UserBean> findUserDataIsUser(Integer userId) {
+		UserBean user = userDAO.findUserByIdIsUser(userId);
+		List<UserBean> users = new ArrayList<>();
+		if (user != null) {
+			users.add(user);
+		}
+		return users;
+	}
+	//findAllUser()
+	public List<UserBean> findAllUserDataIsAdmin() {
+		List<UserBean> userList = userDAO.findAllUserIsAdmin();
+		return userList;
+	}
+	public List<UserBean> findAllUserDataIsUser() {
+		List<UserBean> userList = userDAO.findAllUserIsUser();
+		return userList;
+	}
+	
 	//查詢會員資料(admin)
 	//findByUserName
 	public List<MemberBean> findMemberData(String name) {
-		return null;
+		List<MemberBean> memberList = memberDAO.findMemberDataByName(name);
+		return memberList;
 	}
 	//findByUserId
-	public MemberBean findMemberData(Integer userId) {
-		return null;
+	public List<MemberBean> findMemberData(Integer userId) {
+		MemberBean member = memberDAO.findMemberDataById(userId);
+		List<MemberBean> memberDatas = new ArrayList<>();
+		if (member != null) {
+			memberDatas.add(member);
+		}
+		return memberDatas;
 	}
-	
+	//findAllMember
+	public List<MemberBean> findAllMemberData() {
+		List<MemberBean> memberList = memberDAO.findAllMemberData();
+		return memberList;
+	}
 	
 	//修改使用者資料(admin,user)
 	public int updateUserData(UserBean user) {

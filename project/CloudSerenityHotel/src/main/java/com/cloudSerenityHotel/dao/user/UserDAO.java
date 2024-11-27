@@ -20,6 +20,8 @@ public class UserDAO {
 	private static final String UPDATE_EMAIL = "UPDATE users SET email=?,update_time=? WHERE userid =?";
 	private static final String UPDATE_PASSWORD = "UPDATE users SET password=?,update_time=? WHERE userid =?";
 	private static final String GETONE_ID = "SELECT * FROM users WHERE userid =?";
+	private static final String GETONE_ID_ADMIN = "SELECT * FROM users WHERE userid =? AND user_identity = 'admin'";
+	private static final String GETONE_ID_USER = "SELECT * FROM users WHERE userid =? AND user_identity = 'user'";
 	private static final String GETONE_EMAIL = "SELECT * FROM users WHERE email =?";
 	private static final String GETONE_NAME_ADMIN = "SELECT * FROM users WHERE user_name =? AND user_identity = 'admin'";
 	private static final String GETONE_NAME_USER = "SELECT * FROM users WHERE user_name =? AND user_identity = 'user'";
@@ -104,7 +106,7 @@ public class UserDAO {
 		Connection conn =JDBCUtils.getConnection();
 		PreparedStatement stmt =null;
 		try {
-			stmt = conn.prepareStatement(UPDATE_EMAIL);
+			stmt = conn.prepareStatement(UPDATE_NAME);
 			stmt.setString(1, name);
 			stmt.setInt(3,userid);
 			stmt.setTimestamp(2,getTime.getNowTime());
@@ -180,6 +182,60 @@ public class UserDAO {
 		}
 		return user;
 	}
+	public UserBean findUserByIdIsAdmin(Integer userid) {
+		Connection conn =JDBCUtils.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		UserBean user = null;
+		try {
+			stmt = conn.prepareStatement(GETONE_ID_ADMIN);
+			stmt.setInt(1, userid);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				user = new UserBean();
+				user.setUserId(rs.getInt("userid"));
+				user.setUserName(rs.getString("user_name"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setUserStatus(rs.getString("user_status"));
+				user.setUserIdentity(rs.getString("user_identity"));
+				user.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			JDBCUtils.closeResource(conn, stmt, rs);
+		}
+		return user;
+	}
+	public UserBean findUserByIdIsUser(Integer userid) {
+		Connection conn =JDBCUtils.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		UserBean user = null;
+		try {
+			stmt = conn.prepareStatement(GETONE_ID_USER);
+			stmt.setInt(1, userid);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				user = new UserBean();
+				user.setUserId(rs.getInt("userid"));
+				user.setUserName(rs.getString("user_name"));
+				user.setEmail(rs.getString("email"));
+				user.setPassword(rs.getString("password"));
+				user.setUserStatus(rs.getString("user_status"));
+				user.setUserIdentity(rs.getString("user_identity"));
+				user.setUpdateTime(rs.getTimestamp("update_time").toLocalDateTime());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			JDBCUtils.closeResource(conn, stmt, rs);
+		}
+		return user;
+	}
 	public UserBean findUserByEmail(String email) {
 		Connection conn =JDBCUtils.getConnection();
 		PreparedStatement stmt = null;
@@ -214,6 +270,7 @@ public class UserDAO {
 		List<UserBean> users = new ArrayList<>();
 		try {
 			stmt = conn.prepareStatement(GETONE_NAME_ADMIN);
+			stmt.setString(1, userName);
 			rs = stmt.executeQuery();
 			UserBean user = null;
 			while(rs.next()) {
@@ -242,6 +299,7 @@ public class UserDAO {
 		List<UserBean> users = new ArrayList<>();
 		try {
 			stmt = conn.prepareStatement(GETONE_NAME_USER);
+			stmt.setString(1, userName);
 			rs = stmt.executeQuery();
 			UserBean user = null;
 			while(rs.next()) {
