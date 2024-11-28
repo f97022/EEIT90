@@ -164,8 +164,16 @@ public class UserService {
 		}
 	}
 	//新增管理員帳號(admin)
-	public int addAdmin() {
-		
+	public int addAdmin(UserBean user) {
+		// 判斷Email 是否重複
+		String email = user.getEmail();
+		UserBean checkEmail = userDAO.findUserByEmail(email);
+		if (checkEmail == null) {
+			int addUser = userDAO.addUser(user);
+			if (addUser > 0) {
+				return 1;
+			}
+		}
 		return 0;
 	}
 	
