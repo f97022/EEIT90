@@ -27,10 +27,15 @@ public class EncodingFilter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		request.setCharacterEncoding(encoding);
-		response.setContentType("text/html;charset=" + encoding);
-		response.setCharacterEncoding(encoding);
-		chain.doFilter(request, response);
+	    // 確保請求是 HTTP 的請求
+	    if (request.getContentType() == null || request.getContentType().contains("text/html")) {
+	        // 僅針對 HTML 設置編碼
+	        request.setCharacterEncoding(encoding);
+	        response.setCharacterEncoding(encoding);
+	    }
+	    
+	    // 將請求傳遞到下一個過濾器或目標資源
+	    chain.doFilter(request, response);
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
