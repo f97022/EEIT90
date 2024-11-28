@@ -29,25 +29,28 @@
 		<td>${member.passportNo}
 		<td>${member.registerDate}
 		<td>${member.dataUpdateTime}
-		<td>
-		<form action='/CloudSerenityHotel/user/updateData' method='post'>
-      	<input type='hidden' name='userId' value='${member.userId}'>
-      	<input type='submit' value='修改資料'>
-      	</form>
-		<td>
 		<c:choose>
 		<c:when test="${member.userStatus == 'In_use'}">
-		<c:set var="status" value="註銷帳號"/>
-		<c:set var="action" value="delete"/>
+		<c:set var="actionStr" value="註銷帳號"/>
+		<c:set var="action" value="delacc"/>
 		</c:when>
 		<c:otherwise>
-		<c:set var="status" value="恢復帳號"/>
+		<c:set var="actionStr" value="恢復帳號"/>
 		<c:set var="action" value="recover"/>
 		</c:otherwise>
 		</c:choose>
-		<form action='/CloudSerenityHotel/user/${action}' method='post'>
+		<td>
+		<form action='/CloudSerenityHotel/user/getUpdateData' method='post'>
+      	<input type='hidden' name='userId' value='${member.userId}'>
+      	<input type='hidden' name='identity' value='user'>
+      	<input type='submit' value='修改資料'>
+      	</form>
+		<td>
+		<form action='/CloudSerenityHotel/user/statusLock' method='post'>
 		<input type='hidden' name='userId' value='${member.userId}'>
-      	<input type='submit' value='${status}'>
+		<input type='hidden' name='action' value='${action}'>
+		<input type='hidden' name='identity' value='user'>
+      	<input type='submit' value='${actionStr}'>
 		</form>   
 		</tr>
 		</tr>
@@ -55,6 +58,7 @@
 	</c:forEach>
 </table>
 <h3>共${num}筆 會員資料</h3>
+<a href="/CloudSerenityHotel/static/user/protected/queryMemberData.jsp">回查詢頁面</a>
 </div>
 </body>
 </html>

@@ -26,6 +26,7 @@ public class QueryData extends HttpServlet {
 		String queryConditions = request.getParameter("conditions"); //條件(userId,userName)
 		String queryTargetIdentity = request.getParameter("targetIdentity"); //身分(admin,user)
 		String queryKeyword = request.getParameter("keyword"); //關鍵字
+		System.out.println(queryConditions+" "+ queryTargetIdentity + " " +queryKeyword);
 		//先判條件 再判身分
 		if (queryConditions.equals("userId")) { //userId
 			if(queryTargetIdentity.equals("admin")) { //admin

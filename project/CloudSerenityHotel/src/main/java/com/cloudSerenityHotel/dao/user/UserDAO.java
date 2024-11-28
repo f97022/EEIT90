@@ -16,6 +16,7 @@ public class UserDAO {
 	private static final String DELETE = "UPDATE users SET user_status = 'Logged_out',update_time=? WHERE userid =?";
 	private static final String RECOVER = "UPDATE users SET user_status = 'In_use',update_time=? WHERE userid =?";
 	private static final String REMOVE = " DELETE FROM users WHERE userid =?";
+	private static final String UPDATE_ALL = "UPDATE users SET user_name=?,email=?,password=?,update_time=? WHERE userid =?";
 	private static final String UPDATE_NAME = "UPDATE users SET user_name=?,update_time=? WHERE userid =?";
 	private static final String UPDATE_EMAIL = "UPDATE users SET email=?,update_time=? WHERE userid =?";
 	private static final String UPDATE_PASSWORD = "UPDATE users SET password=?,update_time=? WHERE userid =?";
@@ -100,6 +101,26 @@ public class UserDAO {
 			JDBCUtils.closeResource(conn, stmt, null);
 		}
 		return removeCount;
+	}
+	public int updateUser(Integer userid,String name,String email,String password) {
+		int updateCount = 0;
+		Connection conn =JDBCUtils.getConnection();
+		PreparedStatement stmt =null;
+		try {
+			stmt = conn.prepareStatement(UPDATE_ALL);
+			stmt.setString(1, name);
+			stmt.setString(2, email);
+			stmt.setString(3, password);
+			stmt.setInt(5,userid);
+			stmt.setTimestamp(4,getTime.getNowTime());
+			updateCount = stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}finally {
+			JDBCUtils.closeResource(conn, stmt, null);
+		}
+		return updateCount;
 	}
 	public int updateUserName(Integer userid,String name) {
 		int updateCount = 0;

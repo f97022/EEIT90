@@ -10,7 +10,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import java.io.IOException;
 
-@WebFilter("/*") // 適用於所有請求
+@WebFilter("/user/*")
 public class EncodingFilter extends HttpFilter implements Filter {
 	
 	private static final long serialVersionUID = 1L;

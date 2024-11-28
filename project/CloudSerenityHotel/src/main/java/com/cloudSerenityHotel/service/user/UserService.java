@@ -54,6 +54,15 @@ public class UserService {
 		return 0;
 	}
 	
+	public UserBean findUserById(int userId) {
+		UserBean user = userDAO.findUserById(userId);
+		return user;
+	}
+	public MemberBean findMemberDataById(int userId) {
+		MemberBean member = memberDAO.findMemberDataById(userId);
+		return member;
+	}
+	
 	//查詢使用者資料(admin)
 	//findByUserName()
 	public List<UserBean> findUserDataIsAdmin(String name) {
@@ -113,22 +122,35 @@ public class UserService {
 	}
 	
 	//修改使用者資料(admin,user)
-	public int updateUserData(UserBean user) {
-		return 0;
+	public int updateUserData(Integer userid,String name,String email,String password) {
+		int updateUser = userDAO.updateUser(userid,name,email,password);
+		if (updateUser > 0) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	//修改會員資料(admin,user)
 	public int updateMemberData(MemberBean member) {
 		return 0;
 	}
 	//註銷帳號(admin,user)
-	public int deleteUser() {
-		
-		return 0;
+	public int deleteUser(int userId) {
+		int deleteUser = userDAO.deleteUser(userId);
+		if (deleteUser > 0) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	//恢復帳號(admin)
-	public int recoverUser() {
-		
-		return 0;
+	public int recoverUser(int userId) {
+		int recoverUser = userDAO.recoverUser(userId);
+		if (recoverUser > 0) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 	//新增管理員帳號(admin)
 	public int addAdmin() {
