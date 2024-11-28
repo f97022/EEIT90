@@ -1,13 +1,13 @@
 
 --帳號
 CREATE TABLE users (
-userid INT IDENTITY(1,1) NOT NULL PRIMARY KEY, --使用者編號(主鍵)
+userid INT IDENTITY(1,1) NOT NULL PRIMARY KEY, --使用者編號(主鍵、外鍵)
 user_name NVARCHAR(100) NOT NULL , --使用者姓名
 email NVARCHAR(Max) NOT NULL , --電子信箱
 password NVARCHAR(100) NOT NULL , --密碼
 update_time DATETIME NOT NULL , --帳號更新時間
 user_status NVARCHAR(50) NOT NULL 
-CHECK (user_status = 'In_use' OR user_status = 'Logged_out'), --使用者狀態(使用中In_use、已註銷Logged_out)
+CHECK (user_status = 'In_use' OR user_status = 'Logged_out'), --使用狀態(使用中In_use、已註銷Logged_out)
 user_identity NVARCHAR(50) NOT NULL 
 CHECK (user_identity = 'admin' OR user_identity = 'user') --使用者身分(管理員admin,會員user)
 );
