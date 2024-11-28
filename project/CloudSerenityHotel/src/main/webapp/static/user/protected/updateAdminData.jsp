@@ -23,7 +23,7 @@
 			  <label for="password">密碼</label>
 			 <input type="text" id="password" name="password" value="${userData.password}" required>
 			  <p></p>
-			   <input type="hidden" id="identity" name="identity" value="${userData.userIdentity}" readonly>
+			   <input type="hidden" id="identity" name="identity" value="admin" readonly>
   			 <button type="submit">修改</button>
 </form>
 </div>

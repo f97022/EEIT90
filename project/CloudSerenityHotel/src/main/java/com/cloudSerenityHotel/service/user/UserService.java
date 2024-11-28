@@ -132,7 +132,18 @@ public class UserService {
 	}
 	//修改會員資料(admin,user)
 	public int updateMemberData(MemberBean member) {
-		return 0;
+		int updateUser = userDAO.updateUser(member.getUserId(),member.getMemberName(),member.getEmail(),member.getPassword());
+		int updateMember = memberDAO.updateMemberData(member);
+		if (updateUser > 0) {
+			if(updateMember > 0) {
+				
+				return 1;
+			}else {
+				return 0;
+			}
+		}else {
+			return 0;
+		}
 	}
 	//註銷帳號(admin,user)
 	public int deleteUser(int userId) {
