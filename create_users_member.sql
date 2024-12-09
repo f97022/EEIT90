@@ -6,18 +6,14 @@ user_name NVARCHAR(100) NOT NULL , --使用者姓名
 email NVARCHAR(Max) NOT NULL , --電子信箱
 password NVARCHAR(100) NOT NULL , --密碼
 update_time DATETIME NOT NULL , --帳號更新時間
-user_status NVARCHAR(50) NOT NULL 
-CHECK (user_status = 'In_use' OR user_status = 'Logged_out'), --使用狀態(使用中In_use、已註銷Logged_out)
-user_identity NVARCHAR(50) NOT NULL 
-CHECK (user_identity = 'admin' OR user_identity = 'user') --使用者身分(管理員admin,會員user)
+user_status NVARCHAR(50) NOT NULL , --使用狀態(使用中In_use、已註銷Logged_out)
+user_identity NVARCHAR(50) NOT NULL  --使用者身分(管理員admin,會員user)
 );
 
 --會員資料
 CREATE TABLE members (
 userid INT NOT NULL PRIMARY KEY, --使用者編號(主鍵)(連接users)
-member_name NVARCHAR(100) NOT NULL , --會員姓名
-gender NVARCHAR(10) NOT NULL 
-CHECK (gender = 'Male' OR gender = 'Female' OR gender = 'Other'), --性別(男Male、女Female、其他Other)
+gender NVARCHAR(10) NOT NULL , --性別(男Male、女Female、其他Other)
 birthday DATE NOT NULL , --生日
 phone NVARCHAR(50) NOT NULL , --電話
 personal_id_no NVARCHAR(Max) , --身分證字號(外國人沒有身分證字號)
@@ -42,6 +38,6 @@ update_time DATETIME NOT NULL --資料更新時間
 --INSERT INTO users(user_name,email,password,user_status,user_identity,update_time) VALUES('test005','test005@mail.com','Test@005','In_use','user','2024-11-25');
 --INSERT INTO users(user_name,email,password,user_status,user_identity,update_time) VALUES('test006','test006@mail.com','Test@006','In_use','user','2024-11-26');
 
---INSERT INTO members(userid,member_name,gender,birthday,phone,personal_id_no,country,address,passport_no,register_date,update_time) VALUES(4,'test004','Male','2024-11-24','0900100100','A123456789','TWN','0123456789','','2024-11-24','2024-11-24')
---INSERT INTO members(userid,member_name,gender,birthday,phone,personal_id_no,country,address,passport_no,register_date,update_time) VALUES(5,'test005','Male','2024-11-25','0900100100','A123456789','TWN','0123456789','','2024-11-25','2024-11-25')
---INSERT INTO members(userid,member_name,gender,birthday,phone,personal_id_no,country,address,passport_no,register_date,update_time) VALUES(6,'test006','Male','2024-11-26','0900100100','A123456789','TWN','0123456789','','2024-11-26','2024-11-26')
+--INSERT INTO members(userid,gender,birthday,phone,personal_id_no,country,address,passport_no,register_date,update_time) VALUES(4,'Male','2024-11-24','0900100100','A123456789','TWN','0123456789','','2024-11-24','2024-11-24')
+--INSERT INTO members(userid,gender,birthday,phone,personal_id_no,country,address,passport_no,register_date,update_time) VALUES(5,'Male','2024-11-25','0900100100','A123456789','TWN','0123456789','','2024-11-25','2024-11-25')
+--INSERT INTO members(userid,gender,birthday,phone,personal_id_no,country,address,passport_no,register_date,update_time) VALUES(6,'Male','2024-11-26','0900100100','A123456789','TWN','0123456789','','2024-11-26','2024-11-26')
